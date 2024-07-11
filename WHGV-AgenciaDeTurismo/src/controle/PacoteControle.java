@@ -107,30 +107,30 @@ public class PacoteControle {
                 "Origem: " + pacote.getOrigem()+ "\n" +
                 "Data de volta: " + pacote.getData_volta()+ "\n" +
                 "Preço do pacote: " + pacote.getPreco_pac() + "\n" +
-                "Compania aerea" + pacote.getCpf() + "\n");
+                "Compania aerea" + pacote.getCompania_aerea() + "\n");
     }
 
-    public void imprimirCliente(ArrayList<Cliente> cliente) {
-        for (Cliente cli : cliente) {
-            System.out.println("Codigo: " + cli.getCod_cliente() + "\n" +
-                "Nome: " + cli.getNome_cliente() + "\n" +
-                "Sexo: " + cli.getSexo() + "\n" +
-                "Cadastro: " + cli.getCadastro() + "\n" +
-                "RG: " + cli.getRg() + "\n" +
-                "Data de nascimento: " + cli.getData_nasc() + "\n" +
-                "CPF: " + cli.getCpf() + "\n");
+    public void imprimirPacote(ArrayList<Pacote> pacote) {
+        for (Pacote pac : pacote) {
+            System.out.println("Codigo: " + pac.getCod_pacote() + "\n" +
+                "Destino: " + pac.getDestino() + "\n" +
+                "Data de partida: " + pac.getData_partida() + "\n" +
+                "Origem: " + pac.getOrigem()+ "\n" +
+                "Data de volta: " + pac.getData_volta()+ "\n" +
+                "Preço do pacote: " + pac.getPreco_pac() + "\n" +
+                "Compania aerea" + pac.getCompania_aerea() + "\n");
         }
     }
 
-    public String alterarCliente(Cliente cliente) {
+    public String alterarPacote(Pacote pacote) {
         ConexaoMySQL conexao = new ConexaoMySQL();
         Connection conn = conexao.conectar();
         String resultado = "";
         try {
-            String consulta = "UPDATE cliente SET "
-                    + "nome_cliente = ?, sexo = ?, cadastro = ?, rg = ?, "
-                    + "data_nasc = ?, cpf = ? WHERE "
-                    + "cod_cliente = ?";
+            String consulta = "UPDATE pacote SET "
+                    + "destino = ?, data_partida = ?, origem = ?, data_volta = ?, "
+                    + "preco_pac = ?, compania_aerea = ? WHERE "
+                    + "cod_pacote = ?";
             PreparedStatement stm = conn.prepareStatement(consulta);
             stm.setString(1, pacote.getDestino());
             stm.setString(2, pacote.getData_partida());
@@ -144,23 +144,23 @@ public class PacoteControle {
             resultado = "Dados atualizados com sucesso";
         } catch (SQLException ex) {
             System.out.println(ex.getSQLState());
-            resultado = "erro ao atualizar a tabela 'cliente' ";
+            resultado = "erro ao atualizar a tabela 'pacote' ";
         }
         return resultado;
     }
 
-    public String removerCliente(int cliente) {
+    public String removerPacote(int pacote) {
         ConexaoMySQL conexao = new ConexaoMySQL();
         Connection conn = conexao.conectar();
         String resultado = "";
         try {
-            String consulta = "DELETE FROM clientes WHERE cod_cliente = ?";
+            String consulta = "DELETE FROM pacote WHERE cod_pacote = ?";
 
             PreparedStatement stm = conn.prepareStatement(consulta);
-            stm.setInt(1, cliente);
+            stm.setInt(1, pacote);
 
             stm.executeUpdate();
-            resultado = "Cliente removido com sucesso";
+            resultado = "Pacote removido com sucesso";
         } catch (SQLException ex) {
             System.out.println(ex.getSQLState());
             resultado = "erro";
@@ -168,6 +168,6 @@ public class PacoteControle {
         return resultado;
     }
 
-    public ClienteControle() {
+    public PacoteControle() {
     }
 }
