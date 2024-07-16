@@ -5,6 +5,10 @@
  */
 package visao;
 
+import javax.swing.JOptionPane;
+import modelo.Cliente;
+import conexao.ConexaoMySQL;
+
 /**
  *
  * @author aluno
@@ -32,14 +36,14 @@ public class ConsultarCli extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        lNome = new javax.swing.JLabel();
         lCPF = new javax.swing.JLabel();
         lCPF1 = new javax.swing.JLabel();
         lCPF2 = new javax.swing.JLabel();
         lCPF3 = new javax.swing.JLabel();
         lCPF4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        cli = new javax.swing.JComboBox<>();
+        nome_cliente = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,10 +53,6 @@ public class ConsultarCli extends javax.swing.JFrame {
         jLabel2.setText("Consultar dados do cliente");
 
         jLabel3.setText("Nome do Cliente:");
-
-        lNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lNome.setText("Nome:");
 
         lCPF.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lCPF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -83,11 +83,13 @@ public class ConsultarCli extends javax.swing.JFrame {
             }
         });
 
-        cli.addActionListener(new java.awt.event.ActionListener() {
+        nome_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cliActionPerformed(evt);
+                nome_clienteActionPerformed(evt);
             }
         });
+
+        jLabel4.setText("Código do cliente:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,21 +105,6 @@ public class ConsultarCli extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lCPF4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lCPF2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lCPF3))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(64, 64, 64)
-                                            .addComponent(lNome, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cli, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -125,7 +112,18 @@ public class ConsultarCli extends javax.swing.JFrame {
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(91, 91, 91)
-                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(lCPF4, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lCPF2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lCPF3)
+                                    .addComponent(jLabel4))
+                                .addGap(20, 20, 20)
+                                .addComponent(nome_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(145, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -140,12 +138,12 @@ public class ConsultarCli extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nome_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lCPF1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -156,7 +154,7 @@ public class ConsultarCli extends javax.swing.JFrame {
                 .addComponent(lCPF3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lCPF4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -168,13 +166,13 @@ public class ConsultarCli extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cliActionPerformed
-        if(cli.getSelectedIndex() < 0)
+    private void nome_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nome_clienteActionPerformed
+        if(nome_cliente.getSelectedIndex() < 0)
         JOptionPane.showMessageDialog(null, "Selecionar um cliente");
         else{
-            String[] res = cli.getSelectedItem().toString().split(" - ");
-            Clientes cli = con.consultarClienteCodigo(Integer.parseInt(res[0]));
-            nome.setText(cli.getCliNome());
+            String[] res = nome_cliente.getSelectedItem().toString().split(" - ");
+            Cliente cli = conn.consultarClienteCodigo(Integer.parseInt(res[0]));
+            nome_cliente.setText(cli.getCliNome());
             cpf.setText(cli.getCliCPF());
             cidade.setText(cli.getCliCidade());
             idade.setText(cli.getCliIdade()+"");
@@ -183,7 +181,7 @@ public class ConsultarCli extends javax.swing.JFrame {
             sexo.setText(cli.getCliSexo()+"");
             cidade.setText(cli.getCliCidade());
         }
-    }//GEN-LAST:event_cliActionPerformed
+    }//GEN-LAST:event_nome_clienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,11 +219,11 @@ public class ConsultarCli extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cli;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lCPF;
@@ -233,6 +231,6 @@ public class ConsultarCli extends javax.swing.JFrame {
     private javax.swing.JLabel lCPF2;
     private javax.swing.JLabel lCPF3;
     private javax.swing.JLabel lCPF4;
-    private javax.swing.JLabel lNome;
+    private javax.swing.JComboBox<String> nome_cliente;
     // End of variables declaration//GEN-END:variables
 }

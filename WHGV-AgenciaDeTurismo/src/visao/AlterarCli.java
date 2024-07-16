@@ -5,12 +5,17 @@
  */
 package visao;
 
+import javax.swing.JOptionPane;
+import modelo.Cliente;
+import conexao.ConexaoMySQL;
 /**
  *
  * @author aluno
  */
 public class AlterarCli extends javax.swing.JFrame {
-
+        
+    
+    
     /**
      * Creates new form AlterarCli
      */
@@ -237,8 +242,9 @@ public class AlterarCli extends javax.swing.JFrame {
         if(cli.getSelectedIndex() < 0)
         JOptionPane.showMessageDialog(null, "Selecionar um cliente");
         else{
+            ConexaoMySQL conexao = new ConexaoMySQL();
             String[] res = cli.getSelectedItem().toString().split(" - ");
-            Clientes cli = con.consultarClienteCodigo(Integer.parseInt(res[0]));
+            Cliente cli = conexao.conn.consultarClienteCodigo(Integer.parseInt(res[0]));
             nome.setText(cli.getCliNome());
             cpf.setText(cli.getCliCPF());
             cidade.setText(cli.getCliCidade());

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package visao;
-
+import controle.ClienteControle;
+import javax.swing.JOptionPane;
 /**
  *
  * @author aluno
@@ -127,10 +128,10 @@ public class RemoverCli extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Selecionar um cliente");
         else{
             String[] cod = cli.getSelectedItem().toString().split(" - ");
-            ClientesControle ins = new ClientesControle();
+            ClienteControle ins = new ClienteControle();
             String res = ins.removerCliente(Integer.parseInt(cod[0]));
             JOptionPane.showMessageDialog(null, res);
-            preencherCombo();
+           
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
