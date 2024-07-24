@@ -260,7 +260,7 @@ public class AlterarCli extends javax.swing.JFrame {
             String dataFormatada = cli.getData_nasc().format(formatter);
             data_nasc.setText(dataFormatada);
             int ns = 0;
-            if ((cli.getSexo()+"").equalsIgnoreCase("F"))
+            if ((cli.getSexo()+"").equalsIgnoreCase("M") || (cli.getSexo()+"").equalsIgnoreCase("F"))
                 ns = 1;
             sexo.setSelectedIndex(ns);
             }
